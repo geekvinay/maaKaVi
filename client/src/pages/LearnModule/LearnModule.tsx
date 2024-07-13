@@ -11,6 +11,7 @@ const LearnModule = () => {
     language: "typescript",
     showFileName: false,
   });
+  console.log('setSettings: ', setSettings);
 
   const [leftWidth, setLeftWidth] = useState(50);
   const [rightWidth, setRightWidth] = useState(50);

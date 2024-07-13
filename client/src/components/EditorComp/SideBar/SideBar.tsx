@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
 
 const SideBar = () => {
@@ -8,8 +7,8 @@ const SideBar = () => {
             value: 'index.html'
         }
     ]);
+    console.log('setFiles: ', setFiles);
     const [isClosed, setIsClosed] = useState(false);
-
     return (
         <section className={`h-full base-h-bg flex justify-start ${isClosed ? 'w-fit' : 'w-[20rem]'}`}>
             <div className="settings-bar w-fit h-full base-bg py-4 border-r-2">

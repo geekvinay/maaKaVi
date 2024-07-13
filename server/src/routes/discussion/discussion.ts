@@ -1,11 +1,16 @@
-import express from 'express';
-import { createDiscussion, getDiscussion, updateDiscussion, deleteDiscussion } from '../../controllers/discussion/discussion';
+import express from "express";
+import {
+  createDiscussion,
+  getDiscussion,
+  updateDiscussion,
+  deleteDiscussion,
+} from "../../controllers/discussion/discussion";
 
-const DiscussionRouter = express.Router();
+const discussionRouter = express.Router();
 
-DiscussionRouter.post('/', createDiscussion);
-DiscussionRouter.get('/:discussionId', getDiscussion);
-DiscussionRouter.put('/:discussionId', updateDiscussion);
-DiscussionRouter.delete('/:discussionId', deleteDiscussion);
+discussionRouter.post("/", createDiscussion);
+discussionRouter.get("/:discussionId", getDiscussion);
+discussionRouter.put("/:discussionId", updateDiscussion);
+discussionRouter.delete("/:discussionId", deleteDiscussion);
 
-export default DiscussionRouter;
+export default discussionRouter;

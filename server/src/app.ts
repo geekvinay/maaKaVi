@@ -1,8 +1,15 @@
-import express from 'express';
-import { connectDB } from './utils/db';
-import * as dotenv from 'dotenv';
-import userRouter from './routes/user/user';
-import { formatResponse } from './utils/res-transformer/res-transformer';
+import express from "express";
+import { connectDB } from "./utils/db";
+import * as dotenv from "dotenv";
+import userRouter from "./routes/user/user";
+import kaviRouter from "./routes/kavi/kavi";
+import codeLabRouter from "./routes/code_lab/codelab";
+import cohortRouter from "./routes/cohort/cohort";
+import commentRouter from "./routes/comment/comment";
+import discussionRouter from "./routes/discussion/discussion";
+import learningModuleRouter from "./routes/learning_module/learning_module";
+
+import { formatResponse } from "./utils/res-transformer/res-transformer";
 
 const app = express();
 
@@ -16,8 +23,11 @@ app.use(formatResponse);
 
 // Routes
 app.get("/", (req, res) => {
-    res.json("Hello world");
+  res.json("Hello world");
 });
 app.use("/v1/users", userRouter);
+
+// Use the kaviRouter
+app.use("/v1/kavi", kaviRouter.kaviRouter);
 
 export default app;

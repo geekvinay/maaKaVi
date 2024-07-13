@@ -6,11 +6,11 @@ import {
   deleteComment,
 } from "../../controllers/comment/comment";
 
-const CommentRouter = express.Router();
+const commentRouter = express.Router();
 
-CommentRouter.post("/", createComment);
-CommentRouter.get("/:commentId", getComment);
-CommentRouter.put("/:commentId", updateComment);
-CommentRouter.delete("/:commentId", deleteComment);
+commentRouter.post("/", createComment);
+commentRouter.get("/:commentId", getComment);
+commentRouter.put("/:commentId", updateComment);
+commentRouter.delete("/:commentId", deleteComment);
 
-export default CommentRouter;
+export default commentRouter;

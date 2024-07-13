@@ -1,10 +1,14 @@
-import express from 'express';
-import { createLearningModule, getLearningModule, updateLearningModule } from '../../controllers/learning_module/learning_module';
+import express from "express";
+import {
+  createLearningModule,
+  getLearningModule,
+  updateLearningModule,
+} from "../../controllers/learning_module/learning_module";
 
-const LearningModuleRouter = express.Router();
+const learningModuleRouter = express.Router();
 
-LearningModuleRouter.post('/', createLearningModule);
-LearningModuleRouter.get('/:learningModuleId', getLearningModule);
-LearningModuleRouter.put('/:learningModuleId', updateLearningModule);
+learningModuleRouter.post("/", createLearningModule);
+learningModuleRouter.get("/:learningModuleId", getLearningModule);
+learningModuleRouter.put("/:learningModuleId", updateLearningModule);
 
-export default LearningModuleRouter;
+export default learningModuleRouter;

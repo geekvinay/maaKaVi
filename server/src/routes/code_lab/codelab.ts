@@ -1,10 +1,14 @@
-import { Router } from 'express';
-import { createCodelab, getCodelab, updateCodelab } from '../../controllers/code_lab/code_lab';
+import { Router } from "express";
+import {
+  createCodelab,
+  getCodelab,
+  updateCodelab,
+} from "../../controllers/code_lab/code_lab";
 
-const codelabRouter = Router();
+const codeLabRouter = Router();
 
-codelabRouter.post('/', createCodelab);
-codelabRouter.get('/:codelabId', getCodelab);
-codelabRouter.put('/:codelabId', updateCodelab);
+codeLabRouter.post("/", createCodelab);
+codeLabRouter.get("/:codelabId", getCodelab);
+codeLabRouter.put("/:codelabId", updateCodelab);
 
-export default codelabRouter;
+export default codeLabRouter;

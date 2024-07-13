@@ -1,12 +1,14 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 import logger from './logger/logger';
 
 export const connectDB = async () => {
   try {
-    await mongoose.connect('mongodb://localhost:27017/maaKavi', {})
-    logger.info('MongoDB connected')
+    const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/maaKavi';
+    console.log('mongoURI: ', mongoURI);
+    await mongoose.connect(mongoURI, {});
+    logger.info('MongoDB connected');
   } catch (err: any) {
-    logger.info(err.message)
-    process.exit(1)
+    logger.info(err.message);
+    process.exit(1);
   }
-}
+};

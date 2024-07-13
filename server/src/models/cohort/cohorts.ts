@@ -1,6 +1,6 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema, Document } from "mongoose";
 
-interface ICohort extends Document {
+export interface ICohort extends Document {
   cohortName: string;
   enrolledCount: number;
 }
@@ -10,4 +10,4 @@ const CohortSchema: Schema = new Schema({
   enrolledCount: { type: Number, default: 0 },
 });
 
-export const Cohort = mongoose.model<ICohort>('Cohort', CohortSchema);
+export const Cohort = mongoose.model<ICohort>("Cohort", CohortSchema);

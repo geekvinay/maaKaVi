@@ -1,6 +1,6 @@
-import mongoose, { Schema, Document, Types } from 'mongoose';
+import mongoose, { Schema, Document, Types } from "mongoose";
 
-interface IDiscussion extends Document {
+export interface IDiscussion extends Document {
   title: string;
   description: string;
   learningModuleId: Types.ObjectId;
@@ -10,8 +10,15 @@ interface IDiscussion extends Document {
 const DiscussionSchema: Schema = new Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
-  learningModuleId: { type: Schema.Types.ObjectId, ref: 'LearningModule', required: true },
+  learningModuleId: {
+    type: Schema.Types.ObjectId,
+    ref: "LearningModule",
+    required: true,
+  },
   upvotes: { type: Number, default: 0 },
 });
 
-export const Discussion = mongoose.model<IDiscussion>('Discussion', DiscussionSchema);
+export const Discussion = mongoose.model<IDiscussion>(
+  "Discussion",
+  DiscussionSchema
+);

@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document, Types } from 'mongoose';
 
-interface ILearningModule extends Document {
+export interface ILearningModule extends Document {
   moduleName: string;
   moduleTitle: string;
   moduleDescription: string;

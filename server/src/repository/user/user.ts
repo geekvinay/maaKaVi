@@ -1,10 +1,14 @@
-import { User, IUser } from '../../models/user/user';
+import { IUser, User} from '../../models/user/user';
 
-export const findUserByUsername = async (username: string): Promise<IUser | null> => {
-    return User.findOne({ username });
+// Define the type for userData parameter
+export const createUserInDb = async (userData: IUser) => {
+  const user = new User(userData);
+  await user.save();
+  return user;
 };
 
-export const createUser = async (user: IUser): Promise<IUser> => {
-    const newUser = new User(user);
-    return newUser.save();
+// Define the type for userId parameter
+export const getUserFromDb = async (userId: string) => {
+  const user = await User.findById(userId);
+  return user;
 };

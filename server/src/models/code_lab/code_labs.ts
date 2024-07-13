@@ -13,9 +13,9 @@ enum Language {
   Swift = "Swift",
 }
 
-interface ICodeLab extends Document {
-  initialCode: string; 
-  finalCode: string; 
+export interface ICodeLab extends Document {
+  initialCode: string;
+  finalCode: string;
   language: Language;
   attemptedCount: number;
 }

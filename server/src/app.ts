@@ -27,7 +27,17 @@ app.get("/", (req, res) => {
 });
 app.use("/v1/users", userRouter);
 
-// Use the kaviRouter
 app.use("/v1/kavi", kaviRouter.kaviRouter);
+
+app.use("/v1/code-lab", codeLabRouter);
+
+app.use("/v1/cohorts", cohortRouter);
+
+app.use("/v1/comments", commentRouter);
+
+app.use("/v1/discussions", discussionRouter);
+
+app.use("/v1/learning-modules", learningModuleRouter);
+
 
 export default app;

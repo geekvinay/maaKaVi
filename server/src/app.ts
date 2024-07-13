@@ -1,8 +1,8 @@
 import express from 'express';
-import passport from 'passport';
 import { connectDB } from './utils/db';
 import * as dotenv from 'dotenv';
-// import './config/passport';
+import userRouter from './routes/user/user';
+import { formatResponse } from './utils/res-transformer/res-transformer';
 
 const app = express();
 
@@ -12,7 +12,12 @@ connectDB();
 
 // Middleware
 app.use(express.json());
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(formatResponse);
+
+// Routes
+app.get("/", (req, res) => {
+    res.json("Hello world");
+});
+app.use("/v1/users", userRouter);
 
 export default app;

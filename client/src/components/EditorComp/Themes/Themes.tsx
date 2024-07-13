@@ -1,0 +1,22 @@
+
+// const monacoThemes: any = {
+//     active4d: "Active4D",
+//     "chrome-devtools": "Chrome DevTools",
+//     "clouds-midnight": "Clouds Midnight",
+//     cobalt: "Cobalt",
+//     "espresso-libre": "Espresso Libre",
+//     github: "GitHub",
+//     "monokai-bright": "Monokai Bright",
+//     monokai: "Monokai",
+//     "night-owl": "Night Owl",
+//     "solarized-dark": "Solarized-dark",
+//     "solarized-light": "Solarized-light",
+//     "tomorrow-night-blue": "Tomorrow-Night-Blue",
+//     "tomorrow-night-bright": "Tomorrow-Night-Bright",
+//     "tomorrow-night-eighties": "Tomorrow-Night-Eighties",
+//     "tomorrow-night": "Tomorrow-Night",
+//     tomorrow: "Tomorrow",
+//     twilight: "Twilight",
+//     "xcode-default": "Xcode_default",
+//     monoindustrial: "monoindustrial",
+// };

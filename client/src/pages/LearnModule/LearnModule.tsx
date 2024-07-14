@@ -3,12 +3,18 @@ import { useState, useEffect } from "react";
 import EditorComp from "../../components/EditorComp/EditorComp";
 import TerminalComp from "../../components/TerminalComp/TerminalComp";
 import MarkdownViewer from "../../components/MarkdownViewer/MarkdownViewer";
-import { markdownContent } from "../../static/markdown/markdown";
 import KaviAI from "../../components/KaviAI/KaviAI";
 import Discussions from "../../components/Discussions/Discussions";
 import Confetti from 'react-dom-confetti';
+import axios from 'axios';
+import { useLocation } from 'react-router-dom'; // Import useParams to get route parameters
 
 const LearnModule = () => {
+  const learnModuleId = useLocation().pathname.split('/').pop(); // Get the learnModuleId from the route parameters
+  const [code, setCode] = useState("");
+  const [expCode, setExpCode] = useState("");
+  const [article, setArticle] = useState("");
+  const token = JSON.parse(localStorage.getItem('token') || "{}" as string);
   const [setting, setSettings] = useState({
     theme: "vs-dark",
     language: "typescript",
@@ -24,6 +30,30 @@ const LearnModule = () => {
   const [isDraggingHorizontal, setIsDraggingHorizontal] = useState(false);
   const [activeSection, setActiveSection] = useState("description"); // Default active section
   const [showConfetti, setShowConfetti] = useState(false);
+
+  const fetchExtraData = async (learnModuleId: string) => {
+    try {
+      const learningModuleResponse = await axios.get(`http://localhost:3031/v1/learning-modules/${learnModuleId}`, { headers: { Authorization: `Bearer ${token}` } });
+      console.log('learningModuleResponse: ', learningModuleResponse.data);
+      const articleResponse = await axios.get(`http://localhost:3031/v1/articles/${learningModuleResponse.data.data.articleId}`, { headers: { Authorization: `Bearer ${token}` } });
+      const codeplayResponse = await axios.get(`http://localhost:3031/v1/code-labs/${learningModuleResponse.data.data.codelabId}`, { headers: { Authorization: `Bearer ${token}` } });
+      console.log('articleResponse: ', articleResponse.data);
+      console.log('codeplayResponse: ', codeplayResponse.data);
+
+      setCode(codeplayResponse.data.data.initialCode);
+      setExpCode(codeplayResponse.data.data.finalCode);
+      setArticle(articleResponse.data.data.articleContent);
+
+    } catch (error) {
+      console.error('Error fetching extra data:', error);
+    }
+  };
+
+  useEffect(() => {
+    if (learnModuleId) {
+      fetchExtraData(learnModuleId);
+    }
+  }, [learnModuleId]); // Added learnModuleId as a dependency to avoid infinite loop
 
   useEffect(() => {
     const handleMouseMove = (event: any) => {
@@ -60,13 +90,17 @@ const LearnModule = () => {
     setIsDraggingHorizontal(true);
   };
 
-  const handleSectionClick = (section: any) => {
+  const handleSectionClick = (section: string) => {
     setActiveSection(section);
   };
 
   const handleRunClick = () => {
-    // Trigger confetti effect
-    setShowConfetti(true);
+    // Compare code with expCode and trigger confetti if they match
+    if (code === expCode) {
+      setShowConfetti(true);
+    } else {
+      setShowConfetti(false);
+    }
 
     // Your other run logic here
     console.log("Running...");
@@ -116,8 +150,8 @@ const LearnModule = () => {
               Discussions
             </li>
           </nav>
-          {activeSection === "description" && <MarkdownViewer markdown={markdownContent} />}
-          {activeSection === "kavi" && <KaviAI article="" code="" />}
+          {activeSection === "description" && <MarkdownViewer markdown={article} />}
+          {activeSection === "kavi" && <KaviAI article={article} code={code} />}
           {activeSection === "discussions" && <Discussions />}
         </section>
         <div
@@ -137,7 +171,7 @@ const LearnModule = () => {
             <button className="title px-4 py-2 bg-blue-700 bg-opacity-50 rounded-md">Next</button>
           </nav>
           <div className="flex-grow" style={{ height: `${editorHeight}%` }}>
-            <EditorComp setting={setting} />
+            <EditorComp code={code} setting={setting} />
           </div>
           <div
             className="h-2 w-full bg-white opacity-20 hover:cursor-row-resize hover:opacity-90"

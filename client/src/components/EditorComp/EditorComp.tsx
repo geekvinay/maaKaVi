@@ -1,13 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Editor from "@monaco-editor/react";
-import { useRef } from "react";
 import { SettingType } from "../../common/EditorTypes";
 import { codeInput } from "./static/input";
 
-const EditorComp = ({ setting }: { setting: SettingType; }) => {
-    const code = useRef<string>();
+const EditorComp = ({ setting, code }: { setting: SettingType; code: string; }) => {
     const handleEditorChange = (value: string | undefined) => {
-        code.current = value?.toString();
+        code = value?.toString() as any;
     };
 
     return (
@@ -24,7 +22,7 @@ const EditorComp = ({ setting }: { setting: SettingType; }) => {
                         height={`100%`}
                         width={`100%`}
                         language={setting.language}
-                        value={code.current}
+                        value={code}
                         theme={setting.theme}
                         defaultValue={codeInput}
                         onChange={handleEditorChange}

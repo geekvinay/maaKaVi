@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect, useRef } from 'react';
 import anime from 'animejs';
+import axios from 'axios';
 
 const KaviAI = ({ article, code }: { article: string, code: string; }) => {
     console.log('code: ', code);
@@ -29,6 +30,7 @@ const KaviAI = ({ article, code }: { article: string, code: string; }) => {
 
     const handleSend = () => {
         if (message.trim() !== '') {
+
             handleMessage(message, 'user');
             handleResponse(message);
             setMessage('');
@@ -41,12 +43,19 @@ const KaviAI = ({ article, code }: { article: string, code: string; }) => {
         }
     };
 
+    const fetchAIResponse = async (userInput: string) => {
+        const response = await axios.post("http://localhost:3031/v1/kavi/conversation", { context: code, query: userInput });
+        console.log('ai-response: ', response);
+        return response.data;
+    };
+
     const handleRefresh = () => {
         setMessages([]);
         // handleMessage('Hello! I am KaviAI, your friendly chatbot. How can I assist you today?', 'ai');
     };
 
-    const handleResponse = (userInput: string) => {
+    const handleResponse = async (userInput: string) => {
+        let response: any;
         switch (userInput.toLowerCase()) {
             case 'hello':
                 handleMessage('KaviAI: Hello! How can I assist you today?', 'ai');
@@ -58,7 +67,9 @@ const KaviAI = ({ article, code }: { article: string, code: string; }) => {
                 handleMessage('KaviAI: I am capable of assisting you with a variety of tasks. Please let me know how I can help!', 'ai');
                 break;
             default:
-                handleMessage('KaviAI: I\'m afraid I don\'t have a specific response for that. Please try asking something else.', 'ai');
+                response = await fetchAIResponse(userInput);
+                console.log('response: ', response.data);
+                handleMessage(response.data.data[0], 'ai');
                 break;
         }
     };

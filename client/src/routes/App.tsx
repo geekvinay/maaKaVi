@@ -20,7 +20,7 @@ const router = createBrowserRouter([
         element: <div>discussions</div>,
     },
     {
-        path: "codeplay",
+        path: "codeplay/*",
         element: <LearnModule />,
     },
     {

@@ -41,8 +41,8 @@ const TerminalComp = ({ socket }: { socket?: SocketService }) => {
   }, [socket]);
 
   return (
-    <section className="terminal-parent flex-grow">
-      <div ref={terminalRef} className="terminal bg-red-50 base-bg block" />
+    <section className="terminal-parent flex-grow rounded-lg">
+      <div ref={terminalRef} className="terminal bg-red-50 base-bg block rounded-b-lg" />
     </section>
   );
 };

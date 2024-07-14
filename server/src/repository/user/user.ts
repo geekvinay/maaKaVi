@@ -11,6 +11,6 @@ export const createUserInDb = async (userData: IUser) => {
 // Define the type for userId parameter
 export const getUserFromDb = async (userId: string) => {
   const id = new Types.ObjectId(userId);
-  const user = await User.findById(id).populate(['Cohort', 'Discussion']);
+  const user = await User.findById(id).populate(['chosenCohorts', 'topDiscussions']);
   return user;
 };

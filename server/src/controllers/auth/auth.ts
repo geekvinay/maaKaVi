@@ -11,9 +11,8 @@ export const registerUser = async (req: Request, res: Response) => {
   try {
     const { username, password }: { username: string; password: string } =
       req.body;
-
     // Check if the username already exists
-    const existingUser = await User.findOne({ username });
+    const existingUser = await User.findOne({ username: username });
     if (existingUser) {
       return res.status(400).json({ message: "Username already exists" });
     }
@@ -30,7 +29,7 @@ export const registerUser = async (req: Request, res: Response) => {
     });
     await newUser.save();
 
-    res.status(201).json({ message: "User registered successfully" });
+    res.status(201).json({ message: "User registered successfully", newUser });
   } catch (error) {
     logger.error(error);
     res.status(500).json({ message: "Internal server error" });
@@ -56,7 +55,7 @@ export const loginUser = async (req: Request, res: Response) => {
 
     // Generate JWT token
     const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
-      expiresIn: "1h",
+      expiresIn: "1d",
     });
 
     res.status(200).json({ token });
@@ -68,12 +67,12 @@ export const loginUser = async (req: Request, res: Response) => {
 
 // Authenticate token
 export const authenticateToken = (
-  req: Request & { userId?: string },
+  req: Request,
   res: Response,
   next: any
 ) => {
   const token = req.headers.authorization?.split(" ")[1];
-
+  //console.log(token);
   if (!token) {
     return res.status(401).json({ message: "No token provided" });
   }
@@ -83,7 +82,9 @@ export const authenticateToken = (
       return res.status(403).json({ message: "Invalid token" });
     }
 
-    req.userId = decoded.userId;
+    //req.userId = decoded.userId;
     next();
   });
 };
+
+// 66937797b9ed80f7b94e216e

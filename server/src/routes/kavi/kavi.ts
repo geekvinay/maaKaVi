@@ -18,6 +18,8 @@ const initializeApp = async () => {
     const app = await Client.connect(process.env.HF_SPACE ?? "", {
       hf_token: `hf_${process.env.HF_TOKEN ?? ""}`,
     });
+    const app_info = await app.view_api();
+    //console.log(app_info);
     return app;
   } catch (error) {
     logger.error("Failed to initialize app:", error);
@@ -36,7 +38,7 @@ kaviRouter.post("/conversation", async (req, res) => {
 
     // Assuming `app` is available here, if not, consider fetching it from a broader scope or initializing it differently
     const app = await initializeApp(); // This should be optimized as per actual use case
-    const response = await app.predict("/predict", { context, query });
+    const response = await app.predict("/predict", [context, query]);
 
     // Send the response back to the client
     res.json(response);

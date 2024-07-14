@@ -10,6 +10,9 @@ import discussionRouter from "./routes/discussion/discussion";
 import learningModuleRouter from "./routes/learning_module/learning_module";
 
 import { formatResponse } from "./utils/res-transformer/res-transformer";
+import { authenticateToken } from './controllers/auth/auth';
+
+import { registerUser, loginUser } from "./controllers/auth/auth";
 
 const app = express();
 
@@ -26,19 +29,23 @@ app.get("/", (req, res) => {
   res.json("Hello world");
 });
 
-app.use("/v1/users", userRouter);
+app.post("/v1/users/create", registerUser);
+
+app.post("/v1/users/login", loginUser);
+
+app.use("/v1/users", authenticateToken,  userRouter);
 
 app.use("/v1/kavi", kaviRouter.kaviRouter);
 
-app.use("/v1/code-lab", codeLabRouter);
+app.use("/v1/code-lab", authenticateToken, codeLabRouter);
 
-app.use("/v1/cohorts", cohortRouter);
+app.use("/v1/cohorts", authenticateToken, cohortRouter);
 
-app.use("/v1/comments", commentRouter);
+app.use("/v1/comments", authenticateToken, commentRouter);
 
-app.use("/v1/discussions", discussionRouter);
+app.use("/v1/discussions", authenticateToken, discussionRouter);
 
-app.use("/v1/learning-modules", learningModuleRouter);
+app.use("/v1/learning-modules", authenticateToken, learningModuleRouter);
 
 
 export default app;

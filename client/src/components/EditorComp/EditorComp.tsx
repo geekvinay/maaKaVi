@@ -11,7 +11,7 @@ const EditorComp = ({ setting }: { setting: SettingType; }) => {
     };
 
     return (
-        <div className="overlay overflow-hidden flex flex-col w-full h-full shadow-4xl">
+        <div className="overlay overflow-hidden flex flex-col w-full h-full shadow-4xl rounded-t-lg">
             <section className="h-full w-full flex justify-start">
                 <section className="Editor-wrapper flex-grow flex flex-col justify-start">
                     {

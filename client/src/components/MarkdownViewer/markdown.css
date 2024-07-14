@@ -1,61 +1,63 @@
 /* Headings */
-div.markdown-viewer h1 {
+.markdown-viewer h1 {
     @apply text-4xl font-bold mb-4;
 }
 
-div.markdown-viewer h2 {
+.markdown-viewer h2 {
     @apply text-3xl font-bold mb-3;
 }
 
-div.markdown-viewer h3 {
+.markdown-viewer h3 {
     @apply text-2xl font-bold mb-2;
 }
 
 /* Paragraphs */
-div.markdown-viewer p {
+.markdown-viewer p {
     @apply text-base leading-normal mb-3;
 }
 
 /* Span */
-div.markdown-viewer span {
+.markdown-viewer span {
     @apply inline-block text-sm font-medium;
 }
 
 /* Bold */
-div.markdown-viewer bold {
+.markdown-viewer strong {
     @apply font-semibold;
 }
 
 /* Italics */
-div.markdown-viewer italic {
+.markdown-viewer em {
     @apply italic;
 }
 
 /* Code */
-div.markdown-viewer code {
-    @apply bg-gray-100 rounded p-1 text-sm font-mono;
+.markdown-viewer pre code {
+    @apply bg-[#1C1F23] rounded text-sm font-mono p-4 my-2;
+    display: block;
+    white-space: pre-wrap; /* Ensures long lines wrap */
 }
 
 /* Blockquote */
-div.markdown-viewer blockquote {
+.markdown-viewer blockquote {
     @apply border-l-4 border-gray-300 pl-2 italic my-4;
 }
 
 /* Lists */
-div.markdown-viewer ul {
+.markdown-viewer ul {
     @apply list-disc pl-6 mb-3;
 }
 
-div.markdown-viewer ol {
+.markdown-viewer ol {
     @apply list-decimal pl-6 mb-3;
 }
 
 /* Links */
-div.markdown-viewer a {
+.markdown-viewer a {
     @apply text-blue-500 hover:underline;
 }
 
 /* Inline Code */
-div.markdown-viewer inline-code {
-    @apply bg-gray-100 rounded p-1 text-sm font-mono;
+.markdown-viewer code {
+    @apply bg-[#1C1F23] rounded p-1 text-sm font-mono;
 }

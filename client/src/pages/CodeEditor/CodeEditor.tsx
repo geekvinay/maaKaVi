@@ -4,7 +4,7 @@ import EditorComp from "../../components/EditorComp/EditorComp";
 import TerminalComp from "../../components/TerminalComp/TerminalComp";
 import SocketService from "../../services/SocketService/SocketService";
 import BottomBar from "../../components/EditorComp/BottomBar/BottomBar";
-import SideBar from "../../components/EditorComp/SideBar/SideBar";
+import Header from "../../components/Header/Header";
 
 const CodeEditor = () => {
     const [dividerPosition, setDividerPosition] = useState(70);
@@ -39,8 +39,8 @@ const CodeEditor = () => {
     };
 
     return (
-        <div className="relative code-editor w-full h-screen flex flex-row overflow-hidden">
-            <SideBar />
+        <div className="relative code-editor w-full h-screen flex flex-row overflow-hidden pt-[5rem]">
+            <Header/>
             <div ref={containerRef} className="flex flex-col flex-grow base-bg">
                 <div className="flex-grow relative" style={{ height: `${dividerPosition}%` }}>
                     <EditorComp setting={setting} />

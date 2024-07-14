@@ -15,6 +15,11 @@ import { formatResponse } from "./utils/res-transformer/res-transformer";
 import { authenticateToken } from './controllers/auth/auth';
 
 import { registerUser, loginUser } from "./controllers/auth/auth";
+const cors = require('cors');
+
+
+
+// Allow all origins
 
 const app = express();
 
@@ -23,6 +28,7 @@ dotenv.config();
 connectDB();
 
 // Middleware
+app.use(cors());
 app.use(express.json());
 app.use(formatResponse);
 app.use(cors());

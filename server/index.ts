@@ -1,7 +1,6 @@
 import app from "./src/app";
 import logger from "./src/utils/logger/logger";
 import kaviRouter from "./src/routes/kavi/kavi";
-
 const PORT = process.env.PORT || 3030;
 
 // IIFE to initialize and start the server

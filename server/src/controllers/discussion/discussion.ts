@@ -4,6 +4,7 @@ import {
   read,
   update,
   remove,
+  all
 } from "../../repository/discussion/discussion";
 
 export const createDiscussion = async (req: Request, res: Response) => {
@@ -48,5 +49,14 @@ export const deleteDiscussion = async (req: Request, res: Response) => {
     res.status(204).end();
   } catch (error: any) {
     res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export const getAllDiscussions = async (res: Response) => {
+  try {
+    const discussions = await all();
+    res.json(discussions);
+  } catch (error: any) {
+    res.status(500).send(error.message);
   }
 };

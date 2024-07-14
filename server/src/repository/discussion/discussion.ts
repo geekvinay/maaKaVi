@@ -31,3 +31,8 @@ export const remove = async (discussionId: string) => {
   const result = await Discussion.deleteOne({ _id: id });
   return result;
 };
+
+export const all = async() => {
+  const discussions = await Discussion.find({}).limit(10);
+  return discussions;
+}

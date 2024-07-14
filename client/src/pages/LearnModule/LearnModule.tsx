@@ -70,7 +70,7 @@ const LearnModule = () => {
           onMouseDown={handleVerticalMouseDown}
         ></div>
         <section
-          className="interactive-editor bg-blue-200 flex flex-col"
+          className="interactive-editor base-bg flex flex-col"
           style={{ width: `${rightWidth}%` }}
         >
           <div

@@ -7,6 +7,7 @@ import {
   all
 } from "../../repository/discussion/discussion";
 
+
 export const createDiscussion = async (req: Request, res: Response) => {
   try {
     const discussion = await create(req.body);

@@ -2,6 +2,7 @@ import mongoose, { Schema, Document, Types } from "mongoose";
 
 export interface IComment extends Document {
   text: string;
+  userId: Types.ObjectId;
   upvotes: number;
   discussionId: Types.ObjectId;
   children: Types.ObjectId[];
@@ -10,6 +11,7 @@ export interface IComment extends Document {
 
 const CommentSchema: Schema = new Schema({
   text: { type: String, required: true },
+  userId: { type: Schema.Types.ObjectId, ref: "User", required: true }, 
   upvotes: { type: Number, default: 0 },
   discussionId: {
     type: Schema.Types.ObjectId,
@@ -17,7 +19,7 @@ const CommentSchema: Schema = new Schema({
     required: true,
   },
   children: [{ type: Schema.Types.ObjectId, ref: "Comment", default: [] }],
-  isParent: { type: Boolean, required: true, default: false },
+  isParent: { type: Boolean, default: false },
   status: { type: String, enum: ["active", "inactive"], default: "active" },
 });
 

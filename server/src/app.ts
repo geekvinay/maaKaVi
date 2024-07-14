@@ -8,6 +8,7 @@ import cohortRouter from "./routes/cohort/cohort";
 import commentRouter from "./routes/comment/comment";
 import discussionRouter from "./routes/discussion/discussion";
 import learningModuleRouter from "./routes/learning_module/learning_module";
+import articleRouter from "./routes/article/article";
 
 import { formatResponse } from "./utils/res-transformer/res-transformer";
 import { authenticateToken } from './controllers/auth/auth';
@@ -36,6 +37,8 @@ app.post("/v1/users/login", loginUser);
 app.use("/v1/users", authenticateToken,  userRouter);
 
 app.use("/v1/kavi", kaviRouter.kaviRouter);
+
+app.use("/v1/articles", authenticateToken, articleRouter);
 
 app.use("/v1/code-lab", authenticateToken, codeLabRouter);
 

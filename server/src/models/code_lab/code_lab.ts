@@ -15,7 +15,7 @@ enum Language {
 
 export interface ICodeLab extends Document {
   initialCode: string;
-  finalCode: string;
+  solutionCode: string;
   language: Language;
   attemptedCount: number;
 }
@@ -24,7 +24,7 @@ const CodeLabSchema: Schema = new Schema({
   initialCode: { type: String, required: true },
   solutionCode: { type: String, required: true },
   language: { type: String, required: true, enum: Object.values(Language) },
-  attemptedCount: { type: Number, required: true, default: 0 },
+  attemptedCount: { type: Number, default: 0 },
 });
 
 export const CodeLab = mongoose.model<ICodeLab>("CodeLab", CodeLabSchema);

@@ -71,3 +71,18 @@ export const getUserCohorts = async (req: Request, res: Response) => {
     res.status(500).json({ error: error.message })
   }
 }
+
+
+export const getUserTopDiscussions = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.userId;
+    const user = await getUserFromDb(userId)
+    if (user) {
+      res.json(user.topDiscussions);
+    } else {
+      res.status(404).json({ error: 'User not found' })
+    }
+  } catch (error: any) {
+    res.status(500).json({ error: error.message })
+  }
+}

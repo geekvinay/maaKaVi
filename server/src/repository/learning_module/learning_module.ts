@@ -11,7 +11,7 @@ export const read = async (learningModuleId: string) => {
   const id = new Types.ObjectId(learningModuleId);
   const module = await LearningModule.findById(id);
   return module;
-}
+};
 
 export const update = async (learningModuleId: string, learningModuleData: Partial<ILearningModule>) => {
   const id = new Types.ObjectId(learningModuleId);
@@ -22,7 +22,6 @@ export const update = async (learningModuleId: string, learningModuleData: Parti
 
 // get all learning modules with given cohort id 
 export const getLearningModulesByCohortId = async (cohortId: string) => {
-  const id = new Types.ObjectId(cohortId);
-  const modules = await LearningModule.find({ cohort: id});
+  const modules = await LearningModule.find({ cohortId: new Types.ObjectId(cohortId) });
   return modules;
 };

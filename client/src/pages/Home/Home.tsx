@@ -107,9 +107,11 @@ const Forum = () => {
   const fetchModules = async (
   ): Promise<void> => {
     try {
-      const response = await axios.get(`http://localhost:3031/v1/users/${user._id}/cohorts`, {headers: {
-        Authorization: `Bearer ${token}`
-      }});
+      const response = await axios.get(`http://localhost:3031/v1/users/${user._id}/cohorts`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       if (response.status === 200) {
         console.log('response: ', response.data);
         setCohorts(response.data);
@@ -128,7 +130,7 @@ const Forum = () => {
 
   return (
     <section className="forum-wrapper w-screen h-screen base-h-bg overflow-scroll flex flex-col justify-start py-[6rem]">
-      <ForumSection title="Learning Modules" items={listItems} />
+      <ForumSection title="Learning Modules" items={cohorts.modules} />
       <ForumSection title="Discussions" items={listItems} />
       <ForumSection title="Top Discussions" items={listItems} />
     </section>

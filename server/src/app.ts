@@ -30,7 +30,6 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 app.use(formatResponse);
-app.use(cors());
 
 // Routes
 app.get("/", (req, res) => {

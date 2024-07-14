@@ -13,6 +13,6 @@ discussionRouter.post("/", createDiscussion);
 discussionRouter.get("/:discussionId", getDiscussion);
 discussionRouter.put("/:discussionId", updateDiscussion);
 discussionRouter.delete("/:discussionId", deleteDiscussion);
-discussionRouter.get("/all", getAllDiscussions);
+discussionRouter.get("/", getAllDiscussions);
 
 export default discussionRouter;

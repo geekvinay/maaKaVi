@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState, useEffect } from "react";
 import EditorComp from "../../components/EditorComp/EditorComp";
 import TerminalComp from "../../components/TerminalComp/TerminalComp";
 import MarkdownViewer from "../../components/MarkdownViewer/MarkdownViewer";
@@ -13,6 +14,7 @@ const LearnModule = () => {
     language: "typescript",
     showFileName: false,
   });
+  console.log('setSettings: ', setSettings);
 
   const [leftWidth, setLeftWidth] = useState(50);
   const [rightWidth, setRightWidth] = useState(50);
@@ -24,7 +26,7 @@ const LearnModule = () => {
   const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
-    const handleMouseMove = (event) => {
+    const handleMouseMove = (event: any) => {
       if (isDraggingVertical) {
         const newLeftWidth = (event.clientX / window.innerWidth) * 100;
         setLeftWidth(newLeftWidth);
@@ -58,7 +60,7 @@ const LearnModule = () => {
     setIsDraggingHorizontal(true);
   };
 
-  const handleSectionClick = (section) => {
+  const handleSectionClick = (section: any) => {
     setActiveSection(section);
   };
 
@@ -144,7 +146,7 @@ const LearnModule = () => {
           <div className="flex-grow" style={{ height: `${terminalHeight}%` }}>
             <TerminalComp />
           </div>
-          <Confetti active={showConfetti} config={confettiConfig} className="absolute inset-0" />
+          <Confetti active={showConfetti} config={confettiConfig} />
         </section>
       </section>
     </section>

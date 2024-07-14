@@ -1,4 +1,5 @@
-import { Discussion, IDiscussion } from "../../models/discussion/discussions";
+import { Discussion, IDiscussion } from "../../models/discussion/discussion";
+import { Types } from "mongoose";
 
 export const create = async (discussionData: IDiscussion) => {
   const discussion = new Discussion(discussionData);
@@ -7,7 +8,8 @@ export const create = async (discussionData: IDiscussion) => {
 };
 
 export const read = async (discussionId: string) => {
-  const discussion = await Discussion.findById(discussionId);
+  const id = new Types.ObjectId(discussionId);
+  const discussion = await Discussion.findById(id);
   return discussion;
 };
 
@@ -15,8 +17,9 @@ export const update = async (
   discussionId: string,
   discussionData: Partial<IDiscussion>
 ) => {
+  const id = new Types.ObjectId(discussionId);
   const discussion = await Discussion.findByIdAndUpdate(
-    discussionId,
+    id,
     discussionData,
     { new: true }
   );
@@ -24,6 +27,7 @@ export const update = async (
 };
 
 export const remove = async (discussionId: string) => {
-  const result = await Discussion.deleteOne({ _id: discussionId });
+  const id = new Types.ObjectId(discussionId);
+  const result = await Discussion.deleteOne({ _id: id });
   return result;
 };

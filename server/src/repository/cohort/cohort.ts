@@ -1,4 +1,5 @@
-import {Cohort, ICohort } from '../../models/cohort/cohorts';
+import {Cohort, ICohort } from '../../models/cohort/cohort';
+import {Types } from "mongoose";
 
 export const createCohortInDb = async (cohortData: ICohort) => {
   const cohort = new Cohort(cohortData);
@@ -7,11 +8,13 @@ export const createCohortInDb = async (cohortData: ICohort) => {
 };
 
 export const getCohortFromDb = async (cohortId: string) => {
-  const cohort = await Cohort.findById(cohortId);
+  const id = new Types.ObjectId(cohortId);
+  const cohort = await Cohort.findById(id);
   return cohort;
 };
 
 export const updateCohortInDb = async (cohortId: string, cohortData: Partial<ICohort>) => {
-  const cohort = await Cohort.findByIdAndUpdate(cohortId, cohortData, { new: true });
+  const id = new Types.ObjectId(cohortId);
+  const cohort = await Cohort.findByIdAndUpdate(id, cohortData, { new: true });
   return cohort;
 };

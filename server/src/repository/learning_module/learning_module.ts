@@ -1,4 +1,5 @@
-import { LearningModule, ILearningModule } from "../../models/learning_module/learning_modules";
+import { LearningModule, ILearningModule } from "../../models/learning_module/learning_module";
+import { Types } from "mongoose";
 
 export const create = async (learningModuleData: ILearningModule) => {
   const module = new LearningModule(learningModuleData);
@@ -7,11 +8,21 @@ export const create = async (learningModuleData: ILearningModule) => {
 };
 
 export const read = async (learningModuleId: string) => {
-  const module = await LearningModule.findById(learningModuleId);
+  const id = new Types.ObjectId(learningModuleId);
+  const module = await LearningModule.findById(id);
   return module;
 }
 
 export const update = async (learningModuleId: string, learningModuleData: Partial<ILearningModule>) => {
-  const module = await LearningModule.findByIdAndUpdate(learningModuleId, learningModuleData, { new: true });
+  const id = new Types.ObjectId(learningModuleId);
+  const module = await LearningModule.findByIdAndUpdate(id, learningModuleData, { new: true });
   return module;
+};
+
+
+// get all learning modules with given cohort id 
+export const getLearningModulesByCohortId = async (cohortId: string) => {
+  const id = new Types.ObjectId(cohortId);
+  const modules = await LearningModule.find({ cohort: id});
+  return modules;
 };

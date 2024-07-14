@@ -1,4 +1,5 @@
-import {Article, IArticle } from '../../models/article/articles';
+import {Article, IArticle } from '../../models/article/article';
+import {Types } from "mongoose";
 
 export const createArticleInDb = async (articleData: IArticle) => {
   const article = new Article(articleData);
@@ -7,11 +8,13 @@ export const createArticleInDb = async (articleData: IArticle) => {
 };
 
 export const getArticleFromDb = async (articleId: string) => {
-  const article = await Article.findById(articleId);
+  const id = new Types.ObjectId(articleId);
+  const article = await Article.findById(id);
   return article;
 };
 
 export const updateArticleInDb = async (articleId: string, articleData: Partial<IArticle>) => {
-  const article = await Article.findByIdAndUpdate(articleId, articleData, { new: true });
+  const id = new Types.ObjectId(articleId);
+  const article = await Article.findByIdAndUpdate(id, articleData, { new: true });
   return article;
 };

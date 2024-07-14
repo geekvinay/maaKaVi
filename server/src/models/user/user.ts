@@ -14,13 +14,19 @@ const UserSchema: Schema = new Schema({
     {
       type: Schema.Types.ObjectId,
       ref: "Discussion",
-      required: true,
-      limit: 5,
+      default: [],
+      limit: 10,
     },
   ],
   chosenCohorts: [
-    { type: Schema.Types.ObjectId, ref: "Cohort", required: true },
+    { type: Schema.Types.ObjectId, ref: "Cohort", default: [] },
   ],
 });
 
 export const User = mongoose.model<IUser>("User", UserSchema);
+
+// Authenticating the user
+// fetch modules and cohorts in user entry in db
+// fetch random discussions and fetch all comments by discussion id (comments hierarchy)
+// fetch all top discussions (change limit to 10) by user id and fetch all comments by discussion id (comments hierarchy)
+// populate wherever ref required while doing a get request (example learn_module)

@@ -13,7 +13,7 @@ export interface ILearningModule extends Document {
 const LearningModuleSchema: Schema = new Schema({
   moduleName: { type: String, required: true },
   moduleTitle: { type: String, required: true },
-  moduleDescription: { type: String, required: true },
+  moduleDescription: { type: String },
   cohortId: { type: Schema.Types.ObjectId, ref: 'Cohort', required: true },
   articleId: { type: Schema.Types.ObjectId, ref: 'Article', required: true },
   codelabId: { type: Schema.Types.ObjectId, ref: 'Codelab', required: true },

@@ -1,102 +1,107 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from 'react';
-import { NavType } from './HomeTypes';
 import { itemMockData } from './static/items';
+import Header from '../../components/Header/Header';
 
-const ITEMS_PER_PAGE = 5;
+const ITEMS_INITIAL_LIMIT = 3;
+const ITEMS_INCREMENT = 2;
 
-const ListItem = ({ item }: { item: any }) => {
-  const maxTitleLength = 50;
-  const maxDescriptionLength = 100;
+export const ListItem = ({ item, imageUrl }: { item: any; imageUrl: string }) => {
+  const maxTitleLength = 50; // Increased length to test overflow
+  const maxDescriptionLength = 200; // Increased length to test overflow
+
+  const truncateText = (text: string, maxLength: number) => {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength) + '...';
+    }
+    return text;
+  };
 
   return (
-    <section className="list-item px-10 py-4 mb-2 base-bg mx-2 rounded-lg hover:cursor-pointer shadow">
-      <h2 className="text-xl font-semibold mb-2 break-words">
-        {truncateText(item?.title, maxTitleLength)}
-      </h2>
-      <p className="text-base text-gray-400 break-words">
-        {truncateText(item?.description, maxDescriptionLength)}
-      </p>
+    <section className="list-none flex items-center px-4 py-4 mb-4 base-bg mx-2 rounded-lg transition-all duration-300 hover:cursor-pointer hover:bg-gray-100 hover:bg-opacity-10 hover:shadow-md">
+      <img
+        src={imageUrl}
+        alt="thumbnail"
+        className="w-[5rem] h-[5rem] object-fill mr-4 rounded-lg"
+      />
+      <div>
+        <h2 className="text-2xl font-semibold break-words">
+          {truncateText(item?.title, maxTitleLength)}
+        </h2>
+        <p className="text-lg text-gray-400 break-words">
+          {truncateText(item?.description, maxDescriptionLength)}
+        </p>
+      </div>
     </section>
   );
 };
 
-const truncateText = (text: string, maxLength: number) => {
-  if (text.length > maxLength) {
-    return text.substring(0, maxLength) + '...';
-  }
-  return text;
+
+export const ForumSection = ({ title, items }: { title: string; items: any[]; }) => {
+  const [limit, setLimit] = useState(ITEMS_INITIAL_LIMIT);
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
+
+  useEffect(() => {
+    fetchCodingImages();
+  }, []);
+
+  const fetchCodingImages = async () => {
+    try {
+      const apiKey = 'FtNvDyfKMwa5exTp1dIyz8Q00rO0m0JlkxgJkdJA8zuJsHBS87qdj2GT';
+      const query = 'JavaScript, Typescript, webdevelopment';
+      const response = await fetch(`https://api.pexels.com/v1/search?query=${query}&per_page=10`, {
+        headers: {
+          Authorization: apiKey,
+        },
+      });
+      const data = await response.json();
+      const images = data.photos.map((photo: any) => photo.src.medium);
+      setImageUrls(images);
+    } catch (error) {
+      console.error('Error fetching images:', error);
+    }
+  };
+
+  const handleReadMore = () => {
+    setLimit(limit + ITEMS_INCREMENT);
+  };
+
+  const displayedItems = items.slice(0, limit);
+
+  return (
+    <section className="section-wrapper mx-[10rem] flex flex-col items-center">
+      <Header />
+      <h2 className="text-3xl px-4 font-bold pt-[2rem] py-[1rem] w-full">{title}</h2>
+      <section className="list-none base-h-bg flex-grow mt-2 rounded-lg">
+        {displayedItems.map((item, id) => (
+          <ListItem item={item} imageUrl={imageUrls[id % imageUrls.length]} key={id} />
+        ))}
+      </section>
+      {limit < items.length && (
+        <button
+          className="read-more mx-auto text-center w-fit px-4 py-2 mt-4 rounded text-blue-300 opacity-50 transition-all duration-300 hover:cursor-pointer hover:bg-gray-100 hover:bg-opacity-10"
+          onClick={handleReadMore}
+        >
+          Read More
+        </button>
+      )}
+      <hr className="border-gray-300 mt-[2rem]" />
+    </section>
+  );
 };
 
 const Forum = () => {
-  const [nav, setNav] = useState(NavType.Modules);
   const [listItems, setListItems] = useState<any[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     setListItems(itemMockData);
   }, []);
 
-  const handlePageChange = (newPage: number) => {
-    setCurrentPage(newPage);
-  };
-
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const endIndex = startIndex + ITEMS_PER_PAGE;
-  const paginatedItems = listItems.slice(startIndex, endIndex);
-  const totalPages = Math.ceil(listItems.length / ITEMS_PER_PAGE);
-
   return (
-    <section className="forum-wrapper w-screen h-screen base-h-bg overflow-scroll px-20 flex flex-col justify-start">
-      <section className="base-bg h-fit px-3 py-3 my-16 rounded-md flex flex-col shadow-2xl">
-        <nav className="base-h-bg section selector h-fit w-full flex items-center rounded-lg py-2 px-2">
-          <li
-            className={`w-44 py-2 flex justify-center items-center list-none font-medium transition-all animate-ease-in duration-100 hover:cursor-pointer ${
-              nav == NavType.Modules ? 'bg-white opacity-75 text-gray-800 rounded-lg' : ''
-            }`}
-            onClick={() => {
-              setNav(NavType.Modules);
-            }}
-          >
-            Modules
-          </li>
-          <li
-            className={`w-44 py-2 flex justify-center items-center list-none font-medium transition-all animate-ease-in duration-100 hover:cursor-pointer ${
-              nav == NavType.Discussions ? 'bg-white opacity-75 text-gray-800 rounded-lg' : ''
-            }`}
-            onClick={() => setNav(NavType.Discussions)}
-          >
-            Discussions
-          </li>
-          <li
-            className={`w-44 py-2 flex justify-center items-center list-none font-medium transition-all animate-ease-in duration-100 hover:cursor-pointer ${
-              nav == NavType.MyDiscussions ? 'bg-white opacity-75 text-gray-800 rounded-lg' : ''
-            }`}
-            onClick={() => setNav(NavType.MyDiscussions)}
-          >
-            My Discussions
-          </li>
-        </nav>
-        <section className="list-item base-h-bg flex-grow mt-2 rounded-lg pt-2 overflow-y-scroll">
-          {paginatedItems.map((item: any, id: any) => (
-            <ListItem item={item} key={id} />
-          ))}
-        </section>
-
-        <div className="pagination mt-4 flex justify-center">
-          {Array.from({ length: totalPages }, (_, index) => (
-            <button
-              key={index}
-              className={`mx-1 px-3 py-1 rounded ${
-                currentPage === index + 1 ? 'base-h-bg text-white' : 'base-bg'
-              }`}
-              onClick={() => handlePageChange(index + 1)}
-            >
-              {index + 1}
-            </button>
-          ))}
-        </div>
-      </section>
+    <section className="forum-wrapper w-screen h-screen base-h-bg overflow-scroll flex flex-col justify-start py-[6rem]">
+      <ForumSection title="Learning Modules" items={listItems} />
+      <ForumSection title="Discussions" items={listItems} />
+      <ForumSection title="Top Discussions" items={listItems} />
     </section>
   );
 };

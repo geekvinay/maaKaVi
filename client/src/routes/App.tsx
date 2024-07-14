@@ -1,18 +1,19 @@
 // App.js
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Forum from '../pages/Home/Home';
+import Home from '../pages/Home/Home';
 import LearnModule from '../pages/LearnModule/LearnModule';
 import "../index.css";
+import KaviAI from '../components/KaviAI/KaviAI';
+import Login from '../components/Login/Login';
 
 const router = createBrowserRouter([
     {
-        path: "*",
-        element: <div>Error</div>,
-        errorElement: <div>error</div>,
+        path: "",
+        element: <Login />,
     },
     {
         path: "home",
-        element: <Forum />,
+        element: <Home />,
     },
     {
         path: "discussions",
@@ -24,7 +25,16 @@ const router = createBrowserRouter([
     },
     {
         path: "kavi",
-        element: <div>kavi</div>,
+        element: (
+            <div className='w-screen h-screen'>
+                <KaviAI article='' code='' />,
+            </div>
+        )
+    },
+    {
+        path: "*",
+        element: <div>Error</div>,
+        errorElement: <div>error</div>,
     },
 ]);
 

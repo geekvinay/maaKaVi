@@ -1,7 +1,14 @@
 import { Router } from 'express';
-import { healthcheck } from '../../controllers/user/user';
+import {getUser, healthcheck, getUserCohorts } from '../../controllers/user/user';
 
 const userRouter = Router();
-userRouter.get('', healthcheck);
+
+// Existing route
+userRouter.get('/healthcheck', healthcheck);
+
+// New routes
+userRouter.get('/:userId', getUser);
+
+userRouter.get('/user/:userId/cohorts', getUserCohorts);
 
 export default userRouter;

@@ -40,6 +40,7 @@ export const registerUser = async (req: Request, res: Response) => {
 export const loginUser = async (req: Request, res: Response) => {
   try {
     const { username, password } = req.body;
+    console.log('username, password: ', username, password);
 
     // Check if the user exists
     const user = await User.findOne({ username });

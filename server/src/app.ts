@@ -40,7 +40,7 @@ app.use("/v1/kavi", kaviRouter.kaviRouter);
 
 app.use("/v1/articles", authenticateToken, articleRouter);
 
-app.use("/v1/code-lab", authenticateToken, codeLabRouter);
+app.use("/v1/code-labs", authenticateToken, codeLabRouter);
 
 app.use("/v1/cohorts", authenticateToken, cohortRouter);
 

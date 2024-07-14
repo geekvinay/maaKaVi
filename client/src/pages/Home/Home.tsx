@@ -2,11 +2,12 @@
 import { useState, useEffect } from 'react';
 import { itemMockData } from './static/items';
 import Header from '../../components/Header/Header';
+import axios from "axios"; // Import axios
 
 const ITEMS_INITIAL_LIMIT = 3;
 const ITEMS_INCREMENT = 2;
 
-export const ListItem = ({ item, imageUrl }: { item: any; imageUrl: string }) => {
+export const ListItem = ({ item, imageUrl }: { item: any; imageUrl: string; }) => {
   const maxTitleLength = 50; // Increased length to test overflow
   const maxDescriptionLength = 200; // Increased length to test overflow
 
@@ -92,9 +93,37 @@ export const ForumSection = ({ title, items }: { title: string; items: any[]; })
 
 const Forum = () => {
   const [listItems, setListItems] = useState<any[]>([]);
+  const [cohorts, setCohorts] = useState<any[]>([]);
+  const [errorMessage, setErrorMessage] = useState<string>(""); // State to track error messages
+  const user = JSON.parse(localStorage.getItem('user') || "{}" as string);
+  const token = JSON.parse(localStorage.getItem('token') || "{}" as string);
+  console.log('cohorts: ', cohorts);
+  console.log('errorMessage: ', errorMessage);
+
+  useEffect(() => {
+    console.log(cohorts);
+  }, [cohorts]);
+
+  const fetchModules = async (
+  ): Promise<void> => {
+    try {
+      const response = await axios.get(`http://localhost:3031/v1/users/${user._id}/cohorts`, {headers: {
+        Authorization: `Bearer ${token}`
+      }});
+      if (response.status === 200) {
+        console.log('response: ', response.data);
+        setCohorts(response.data);
+      } else {
+        setErrorMessage("Invalid username or password. Please try again.");
+      }
+    } catch (error) {
+      setErrorMessage("Invalid username or password. Please try again.");
+    }
+  };
 
   useEffect(() => {
     setListItems(itemMockData);
+    fetchModules();
   }, []);
 
   return (

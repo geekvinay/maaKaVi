@@ -1,4 +1,5 @@
-import { Client } from "@gradio/client";
+export const importDynamic = new Function('modulePath', 'return import(modulePath)');
+
 import express from "express";
 
 // Initialize express app
@@ -8,6 +9,7 @@ expressApp.use(express.json()); // Middleware to parse JSON requests
 // Function to initialize the Gradio app
 const initializeApp = async () => {
   try {
+    const { Client } = await importDynamic('@gradio/client');
     const app = await Client.connect(process.env.HF_SPACE ?? "", {
       hf_token: `hf_${process.env.HF_TOKEN ?? ""}`,
     });

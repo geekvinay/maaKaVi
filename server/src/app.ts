@@ -25,6 +25,7 @@ app.use(formatResponse);
 app.get("/", (req, res) => {
   res.json("Hello world");
 });
+
 app.use("/v1/users", userRouter);
 
 app.use("/v1/kavi", kaviRouter.kaviRouter);

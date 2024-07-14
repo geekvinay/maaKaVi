@@ -19,7 +19,6 @@
   },
   "homepage": "https://github.com/geekvinay/maaKaVi#readme",
   "devDependencies": {
-    "@types/bcrypt": "^5.0.2",
     "@types/bcryptjs": "^2.4.6",
     "@types/body-parser": "^1.19.5",
     "@types/connect": "^3.4.38",

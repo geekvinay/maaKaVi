@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import {getUser, healthcheck, getUserCohorts } from '../../controllers/user/user';
+import {getUser, healthcheck, getUserCohorts, getUserTopDiscussions } from '../../controllers/user/user';
 
 const userRouter = Router();
 
@@ -10,5 +10,7 @@ userRouter.get('/healthcheck', healthcheck);
 userRouter.get('/:userId', getUser);
 
 userRouter.get('/:userId/cohorts', getUserCohorts);
+
+userRouter.get('/:userId/topdiscussions', getUserTopDiscussions);
 
 export default userRouter;

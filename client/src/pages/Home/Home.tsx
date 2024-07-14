@@ -69,6 +69,7 @@ export const ForumSection = ({ title, items }: { title: string; items: any[]; })
     setLimit(limit + ITEMS_INCREMENT);
   };
 
+  console.log('items: ', items);
   const displayedItems = items.slice(0, limit);
 
   return (
@@ -121,12 +122,13 @@ const Forum = () => {
 
   const fetchRandomDiscussions = async () => {
     try {
-      const response = await axios.get(`http://localhost:3031/v1/discussions/all`, {
+      const response = await axios.get(`http://localhost:3031/v1/discussions`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      setRandomDiscussions(response.data);
+      console.log('response.data: ', response.data);
+      setRandomDiscussions(response.data.data);
     } catch (error) {
       setErrorMessage("Error fetching discussions. Please try again.");
     }
@@ -143,7 +145,7 @@ const Forum = () => {
         <ForumSection title={cohort.cohortName} items={cohort.modules} key={index} />
       ))}
       <ForumSection title="Discussions" items={randomDiscussions} />
-      <ForumSection title="Top Discussions" items={listItems} />
+      <ForumSection title="Top Discussions" items={randomDiscussions} />
     </section>
   );
 };

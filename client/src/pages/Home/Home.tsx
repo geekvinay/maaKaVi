@@ -93,7 +93,7 @@ export const ForumSection = ({ title, items }: { title: string; items: any[]; })
 
 const Forum = () => {
   const [listItems, setListItems] = useState<any[]>([]);
-  const [cohorts, setCohorts] = useState<any[]>([]);
+  const [cohorts, setCohorts] = useState<any>([]);
   const [errorMessage, setErrorMessage] = useState<string>(""); // State to track error messages
   const user = JSON.parse(localStorage.getItem('user') || "{}" as string);
   const token = JSON.parse(localStorage.getItem('token') || "{}" as string);
@@ -130,7 +130,7 @@ const Forum = () => {
 
   return (
     <section className="forum-wrapper w-screen h-screen base-h-bg overflow-scroll flex flex-col justify-start py-[6rem]">
-      <ForumSection title="Learning Modules" items={cohorts.modules} />
+      <ForumSection title="Learning Modules" items={cohorts?.modules} />
       <ForumSection title="Discussions" items={listItems} />
       <ForumSection title="Top Discussions" items={listItems} />
     </section>

@@ -41,9 +41,9 @@ export const getUserCohorts = async (req: Request, res: Response) => {
       const modules = await getLearningModulesByCohortId(cohortId)
       return modules.map((module: any) => {
         return {
-          moduleName: module.moduleName,
-          moduleTitle: module.moduleTitle,
-          moduleDescription: module.moduleDescription
+          name: module.moduleName,
+          title: module.moduleTitle,
+          description: module.moduleDescription
         }
       })
     }

@@ -13,7 +13,7 @@ const DiscussionSchema: Schema = new Schema({
   learningModuleId: {
     type: Schema.Types.ObjectId,
     ref: "LearningModule",
-    required: true,
+    default: null,
   },
   upvotes: { type: Number, default: 0 },
 });

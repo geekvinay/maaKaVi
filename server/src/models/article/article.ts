@@ -6,7 +6,7 @@ export interface IArticle extends Document {
 }
 
 const ArticleSchema: Schema = new Schema({
-  cohortId: { type: Schema.Types.ObjectId, required: true },
+  cohortId: { type: Schema.Types.ObjectId, required: false, default: null },
   articleContent: { type: String, required: true },
 });
 

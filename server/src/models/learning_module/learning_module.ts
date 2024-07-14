@@ -7,8 +7,8 @@ export interface ILearningModule extends Document {
   cohortId: Types.ObjectId;
   articleId: Types.ObjectId;
   codelabId: Types.ObjectId;
-  quizId: Types.ObjectId;
 }
+//quizId: Types.ObjectId;
 
 const LearningModuleSchema: Schema = new Schema({
   moduleName: { type: String, required: true },
@@ -17,7 +17,7 @@ const LearningModuleSchema: Schema = new Schema({
   cohortId: { type: Schema.Types.ObjectId, ref: 'Cohort', required: true },
   articleId: { type: Schema.Types.ObjectId, ref: 'Article', required: true },
   codelabId: { type: Schema.Types.ObjectId, ref: 'Codelab', required: true },
-  quizId: { type: Schema.Types.ObjectId, ref: 'Quiz'},
+  //quizId: { type: Schema.Types.ObjectId, ref: 'Quiz'},
 });
 
 export const LearningModule = mongoose.model<ILearningModule>('LearningModule', LearningModuleSchema);

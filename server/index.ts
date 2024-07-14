@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 3030;
 // IIFE to initialize and start the server
 (async () => {
   await kaviRouter.initializeApp(); // Ensure the app is initialized before starting the server
-  const port = process.env.PORT || 3000;
+  const port = PORT;
   app.listen(port, () => {
     logger.info(`Server running on port ${PORT}`);
   });

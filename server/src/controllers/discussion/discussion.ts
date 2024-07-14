@@ -52,10 +52,12 @@ export const deleteDiscussion = async (req: Request, res: Response) => {
   }
 };
 
-export const getAllDiscussions = async (res: Response) => {
+export const getAllDiscussions = async (req: Request, res: Response) => {
   try {
+    console.log('aewrt');
     const discussions = await all();
-    res.json(discussions);
+    console.log('discussions: ', discussions);
+    res.status(200).json(discussions);
   } catch (error: any) {
     res.status(500).send(error.message);
   }

@@ -33,6 +33,11 @@ export const remove = async (discussionId: string) => {
 };
 
 export const all = async() => {
-  const discussions = await Discussion.find({}).limit(10);
-  return discussions;
-}
+  try {
+    const discussions = await Discussion.find().limit(10);
+    console.log('discussions: ', discussions);
+    return discussions;
+  } catch (error) {
+    console.log('error: ', error);
+  }
+  }

@@ -1,7 +1,6 @@
 import express from "express";
 import { connectDB } from "./utils/db";
 import * as dotenv from "dotenv";
-import cors from 'cors';
 import userRouter from "./routes/user/user";
 import kaviRouter from "./routes/kavi/kavi";
 import codeLabRouter from "./routes/code_lab/codelab";

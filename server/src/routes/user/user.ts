@@ -9,6 +9,6 @@ userRouter.get('/healthcheck', healthcheck);
 // New routes
 userRouter.get('/:userId', getUser);
 
-userRouter.get('/user/:userId/cohorts', getUserCohorts);
+userRouter.get('/:userId/cohorts', getUserCohorts);
 
 export default userRouter;
